@@ -1,5 +1,7 @@
 package testes;
 
+import java.util.Scanner;
+
 public class Atividade {
 	public static void main(String[] args) {
 		// Testando método de inserção
@@ -11,12 +13,74 @@ public class Atividade {
 		// "Altair" }, "Marc");
 
 		// Testando método de alteração
-		String[] nomes = alterarArray(new String[] { "Will", "Joao", "Marc", "Lari", "Altair" }, "Will", "William");
+		// String[] nomes = alterarArray(new String[] { "Will", "Joao", "Marc", "Lari",
+		// "Altair" }, "Will", "William");
 
 		// Imprime os nomes
-		for (int i = 0; i < nomes.length; i++) {
-			System.out.println(nomes[i]);
+		// for (int i = 0; i < nomes.length; i++) {
+		// System.out.println(nomes[i]);
+		// }
+
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("Insira uma lista de nomes separado por virgula e um espaço:");
+		String nomes = entrada.nextLine();
+		System.out.println("");
+		String[] arrayDeNomes = nomes.split(", ");
+		int input;
+do {
+		System.out.println("##### MENU #####" + "\n1: Para Listar os nomes" + "\n2: Para Adicionar um nome"
+				+ "\n3: Para Alterar um nome" + "\n4: Para Excluir um nome" + "\n0: Para sair");
+
+		input = entrada.nextInt();
+
+		switch (input) {
+		case 0:{
+			System.out.println("Programa finalizado");
+			break;
 		}
+		case 1: {
+			System.out.println("");
+			System.out.println("##### LISTAR #####");
+			arrayDeNomes = ordenar(arrayDeNomes);
+			for (String string : arrayDeNomes) {
+				System.out.println(string);
+			}
+			System.out.println("");
+			break;
+		}
+		case 2: {
+			System.out.println("");
+			System.out.println("##### INSERIR #####");
+			System.out.println("Insira o nome que deseja adicionar:");
+			String newName = entrada.next();
+			arrayDeNomes = adicionarArray(arrayDeNomes, newName);
+			System.out.println("");
+			break;
+		}
+		case 3: {
+			System.out.println("");
+			System.out.println("##### Alterar #####");
+			System.out.println("Digite o nome que deseja alterar:");
+			String oldName = entrada.next();
+			System.out.println("Digite o novo nome:");
+			String newName = entrada.next();
+			arrayDeNomes = alterarArray(arrayDeNomes, oldName, newName);
+			System.out.println("");
+			break;
+		}
+		case 4: {
+			System.out.println("");
+			System.out.println("##### Excluir #####");
+			System.out.println("Digite o nome que deseja excluir:");
+			String excName = entrada.next();
+			arrayDeNomes = excluirArray(arrayDeNomes, excName);
+			System.out.println("");
+			break;
+			
+		}
+
+		}
+	}while(input != 0);
 
 	}
 
@@ -68,7 +132,7 @@ public class Atividade {
 		String[] newArray = new String[arrayNomes.length - 1];
 		String aux = "";
 		for (int i = 0; i <= arrayNomes.length - 2; i++) {
-			if (arrayNomes[i] != nameDeleted) {
+			if (!arrayNomes[i].equals(nameDeleted)) {
 				newArray[i] = arrayNomes[i];
 			} else {
 				aux = newArray[i];
@@ -88,7 +152,7 @@ public class Atividade {
 	public static String[] alterarArray(String[] arrayNomes, String alteredName, String newName) {
 		String[] newArray = new String[arrayNomes.length];
 		for (int i = 0; i <= arrayNomes.length - 1; i++) {
-			if (arrayNomes[i] == alteredName) {
+			if (arrayNomes[i].equals(alteredName)) {
 				arrayNomes[i] = newName;
 			}
 			newArray[i] = arrayNomes[i];
